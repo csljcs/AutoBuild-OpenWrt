@@ -38,3 +38,8 @@ sed -i 's/"网络存储"/"存储"/g' package/lean/luci-app-usb-printer/po/zh-cn/
 sed -i 's/"Web 管理"/"Web"/g' package/lean/luci-app-webadmin/po/zh-cn/webadmin.po
 sed -i 's/"管理权"/"改密码"/g' feeds/luci/modules/luci-base/po/zh-cn/base.po
 sed -i 's/"带宽监控"/"监视"/g' feeds/luci/applications/luci-app-nlbwmon/po/zh-cn/nlbwmon.po
+# 修复NTFS格式优盘不自动挂载和热拨插卡机问题（小闪存机子慎用,开启后会增加2.6MB体积）
+mkdir -p files/etc/hotplug.d/block && svn co https://github.com/281677160/openwrt-package/branches/usb/block files/etc/hotplug.d/block
+ntfs="DEFAULT_PACKAGES += usbutils fdisk badblocks kmod-usb-ohci-pci kmod-usb-uhci kmod-usb-hid e2fsprogs wpad \
+kmod-usb2-pci kmod-usb3 kmod-usb-storage-extras kmod-usb-storage-uas kmod-fs-ext4 kmod-fs-vfat "
+sed -i "s/DEFAULT_PACKAGES += /$ntfs/" target/linux/*/Makefile
