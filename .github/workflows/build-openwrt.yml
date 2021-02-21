@@ -11,15 +11,15 @@ on:
     inputs:
       ssh:
         description: 'SSH远程'
-        required: false
+        required: true
         default: 'ssh-actions'
       wxtz:
         description: '微信通知'
-        required: false
+        required: true
         default: 'wxtz-actions'
       release:
         description: '发布固件'
-        required: false
+        required: true
         default: 'release-actions'
 
 #定时触发开始编译(把下面两个#去掉开启,时间设置请看定时编译说明)
@@ -40,7 +40,7 @@ jobs:
 
     name: 编译 "${{matrix.target}}"
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
         target: [Lede_openwrt,Lienol_openwrt,Project_openwrt]
 
